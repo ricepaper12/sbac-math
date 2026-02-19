@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SBAC Math Mastery | Grade 11</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f3ee;--surface:#fff;--s2:#f0ede6;--s3:#e8e4dc;--border:#d6d0c4;--accent:#2d6a4f;--al:#d8f3dc;--a2:#e07c39;--a2l:#fde8d3;--a3:#4361b0;--a3l:#dce8ff;--a4:#9b2335;--a4l:#fce8eb;--text:#1a1814;--t2:#6b6458;--t3:#9c9389;--ok:#2d6a4f;--okb:#d8f3dc;--no:#9b2335;--nob:#fce8eb;--hint:#b45309;--hintb:#fef3c7;--pu:#7c3aed;--pul:#f3e8ff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.page{min-height:100vh;flex-direction:column}
+#login{flex-direction:row}
+
+/* LOGIN */
+#login{display:flex;min-height:100vh}
+#login.active{display:flex}
+.ll{flex:1;background:#1a1814;color:#fff;padding:3rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.ll::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:rgba(45,106,79,.18);pointer-events:none}
+.btag{font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:3px;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:.75rem}
+.btitle{font-family:'DM Serif Display',serif;font-size:clamp(2.4rem,4.5vw,4rem);line-height:1.05;margin-bottom:1rem}
+.btitle span{color:#74c69d}
+.bdesc{font-size:.9rem;line-height:1.6;color:rgba(255,255,255,.6);max-width:320px}
+.feats{margin-top:1.75rem;display:flex;flex-direction:column;gap:.6rem}
+.feat{display:flex;align-items:flex-start;gap:.65rem;font-size:.83rem;color:rgba(255,255,255,.7)}
+.fdot{width:19px;height:19px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;flex-shrink:0;margin-top:1px}
+.dchips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.5rem}
+.dchip{font-family:'Space Mono',monospace;font-size:.62rem;padding:.22rem .6rem;border-radius:20px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.5)}
+.lr{width:420px;padding:3rem 2.5rem;display:flex;flex-direction:column;justify-content:center;background:var(--surface)}
+@media(max-width:680px){#login{flex-direction:column}.ll{padding:2rem;min-height:160px}.lr{width:100%;padding:2rem 1.5rem}}
+.lh{font-family:'DM Serif Display',serif;font-size:1.7rem;margin-bottom:.3rem}
+.ls{font-size:.84rem;color:var(--t2);margin-bottom:1.5rem}
+.rtabs{display:flex;background:var(--s2);border-radius:8px;padding:3px;margin-bottom:1.5rem;gap:3px}
+.rtab{flex:1;padding:.56rem;border-radius:6px;border:none;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--t2);background:transparent;transition:all .2s}
+.rtab.on{background:#fff;color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.fg{margin-bottom:1rem}
+.fl{display:block;font-size:.77rem;font-weight:600;color:var(--t2);margin-bottom:.36rem}
+.fi{width:100%;background:var(--s2);border:1.5px solid var(--border);border-radius:8px;padding:.7rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.92rem;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.fi:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(45,106,79,.12)}
+.bp{width:100%;background:var(--text);color:#fff;border:none;border-radius:8px;padding:.86rem 1rem;font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:600;cursor:pointer;transition:all .2s;margin-top:.4rem}
+.bp:hover{background:#2d2820;transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.div{height:1px;background:var(--border);margin:1.3rem 0}
+
+/* TOP BAR */
+.tbar{background:var(--surface);border-bottom:1.5px solid var(--border);padding:.8rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.tlogo{font-family:'DM Serif Display',serif;font-size:1.05rem}
+.tlogo span{color:var(--accent)}
+.tright{display:flex;align-items:center;gap:.85rem}
+.xpc{display:flex;align-items:center;gap:.38rem;background:var(--al);color:var(--accent);padding:.36rem .85rem;border-radius:20px;font-size:.8rem;font-weight:600}
+.uc{display:flex;align-items:center;gap:.48rem;background:var(--s2);border:1px solid var(--border);padding:.36rem .85rem;border-radius:20px;font-size:.8rem}
+.uav{width:23px;height:23px;border-radius:50%;background:var(--text);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;flex-shrink:0}
+.bg{background:none;border:1.5px solid var(--border);color:var(--t2);padding:.43rem .88rem;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.79rem;font-weight:600;cursor:pointer;transition:all .2s}
+.bg:hover{border-color:var(--text);color:var(--text)}
+
+/* STUDENT HOME */
+.pc{flex:1;padding:2rem;max-width:1000px;margin:0 auto;width:100%}
+.ph{margin-bottom:1.6rem}
+.pt{font-family:'DM Serif Display',serif;font-size:1.65rem;margin-bottom:.25rem}
+.ps{font-size:.83rem;color:var(--t2)}
+.dsec{margin-bottom:2.2rem}
+.dhdr{display:flex;align-items:center;gap:.68rem;margin-bottom:.85rem;padding-bottom:.68rem;border-bottom:1.5px solid var(--border)}
+.dbadge{font-family:'Space Mono',monospace;font-size:.63rem;letter-spacing:1.5px;padding:.2rem .58rem;border-radius:4px;font-weight:700;text-transform:uppercase}
+.dbadge.algebra{background:var(--a3l);color:var(--a3)}
+.dbadge.functions{background:var(--al);color:var(--accent)}
+.dbadge.geometry{background:var(--a2l);color:var(--a2)}
+.dbadge.statistics{background:var(--a4l);color:var(--a4)}
+.dbadge.number{background:var(--pul);color:var(--pu)}
+.dname{font-size:.92rem;font-weight:700}
+.dprog{margin-left:auto;font-size:.78rem;color:var(--t3);font-family:'Space Mono',monospace}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.78rem}
+.sc{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:1.15rem;cursor:pointer;transition:all .18s}
+.sc:hover{border-color:var(--accent);box-shadow:0 8px 24px rgba(0,0,0,.12);transform:translateY(-2px)}
+.sc.locked{opacity:.52;cursor:not-allowed}
+.sc.locked:hover{transform:none;border-color:var(--border);box-shadow:none}
+.sc.mastered{border-color:var(--ok);background:#fafff9}
+.sc.inprog{border-color:var(--a2)}
+.ctop{display:flex;justify-content:space-between;align-items:center;margin-bottom:.58rem}
+.scode{font-family:'Space Mono',monospace;font-size:.66rem;color:var(--t3);background:var(--s2);padding:.17rem .46rem;border-radius:4px}
+.sstat{font-size:.64rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:.17rem .5rem;border-radius:4px}
+.sstat.locked{background:var(--s3);color:var(--t3)}
+.sstat.avail{background:var(--s2);color:var(--t2)}
+.sstat.inprog{background:var(--a2l);color:var(--a2)}
+.sstat.mastered{background:var(--okb);color:var(--ok)}
+.sname{font-size:.9rem;font-weight:700;margin-bottom:.26rem}
+.sdesc{font-size:.74rem;color:var(--t2);line-height:1.42;margin-bottom:.82rem}
+.sbar{background:var(--s3);border-radius:20px;height:5px;overflow:hidden}
+.sbarf{height:100%;border-radius:20px;transition:width .6s ease}
+.sbarlbl{display:flex;justify-content:space-between;margin-top:.3rem;font-size:.68rem;color:var(--t3)}
+
+/* PRACTICE */
+.ptbar{background:var(--surface);border-bottom:1.5px solid var(--border);padding:.8rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.pinfo{text-align:center;flex:1}
+.pcode{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--t3);margin-bottom:.1rem}
+.pname{font-size:.86rem;font-weight:700}
+.mtrack{display:flex;align-items:center;gap:.55rem;font-size:.78rem;color:var(--t2)}
+.pips{display:flex;gap:.26rem}
+.pip{width:26px;height:7px;border-radius:20px;background:var(--s3);transition:all .3s}
+.pip.ok{background:var(--ok)}
+.pip.no{background:var(--no)}
+.mpb{background:var(--surface);border-bottom:1px solid var(--border);padding:.52rem 2rem}
+.mpbi{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:.9rem}
+.mpbl{font-size:.74rem;color:var(--t2);white-space:nowrap}
+.mpbt{flex:1;height:6px;background:var(--s3);border-radius:20px;overflow:hidden}
+.mpbf{height:100%;border-radius:20px;background:var(--accent);transition:width .5s ease}
+.mpbp{font-family:'Space Mono',monospace;font-size:.71rem;color:var(--t3)}
+.pb{flex:1;padding:2rem;max-width:720px;margin:0 auto;width:100%}
+
+/* BANNERS */
+.mbanner{background:var(--surface);border:2px solid var(--ok);border-radius:16px;padding:2.2rem 2rem;text-align:center;display:none}
+.mbanner.show{display:block}
+.rbanner{background:var(--surface);border:2px solid var(--a2);border-radius:16px;padding:1.7rem 2rem;text-align:center;display:none;margin-bottom:1rem}
+.rbanner.show{display:block}
+.bicon{font-size:2.6rem;margin-bottom:.65rem}
+.bh{font-family:'DM Serif Display',serif;font-size:1.6rem;margin-bottom:.42rem}
+.mbanner .bh{color:var(--ok)}
+.rbanner .bh{color:var(--a2)}
+.bp2{font-size:.85rem;color:var(--t2);margin-bottom:1.5rem}
+.mstats{display:flex;justify-content:center;gap:2.5rem;margin-bottom:1.6rem}
+.msv{font-family:'DM Serif Display',serif;font-size:2.1rem}
+.msl{font-size:.71rem;color:var(--t3);margin-top:.06rem}
+.bcont{background:var(--text);color:#fff;border:none;border-radius:8px;padding:.82rem 2rem;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s}
+.bcont:hover{background:#2d2820;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.bret{background:var(--a2);color:#fff;border:none;border-radius:8px;padding:.82rem 2rem;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s}
+.bret:hover{background:#c06c2f}
+
+/* QUESTION */
+.qcard{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:1.8rem;margin-bottom:1rem}
+.qmeta{display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem}
+.qbadge{font-family:'Space Mono',monospace;font-size:.66rem;color:var(--t3)}
+.qdots{display:flex;gap:.2rem}
+.qdot{width:6px;height:6px;border-radius:50%;background:var(--s3)}
+.qdot.used{background:var(--t3)}
+.qtext{font-size:1.06rem;font-weight:500;line-height:1.65;margin-bottom:1.35rem}
+.math{font-family:'Space Mono',monospace;background:var(--s2);border:1px solid var(--border);padding:.07rem .4rem;border-radius:4px;font-size:.92em;color:var(--a3)}
+.opts{display:flex;flex-direction:column;gap:.52rem}
+.opt{display:flex;align-items:center;gap:.8rem;border:1.5px solid var(--border);border-radius:10px;padding:.82rem 1rem;cursor:pointer;transition:all .15s;background:var(--surface);font-size:.9rem}
+.opt:hover{border-color:var(--accent);background:var(--al)}
+.opt.sel{border-color:var(--a3);background:var(--a3l)}
+.opt.ok{border-color:var(--ok);background:var(--okb)}
+.opt.no{border-color:var(--no);background:var(--nob)}
+.ol{width:26px;height:26px;border-radius:6px;background:var(--s2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;flex-shrink:0;transition:all .15s}
+.opt.sel .ol{background:var(--a3);border-color:var(--a3);color:#fff}
+.opt.ok .ol{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.no .ol{background:var(--no);border-color:var(--no);color:#fff}
+.hbox{background:var(--hintb);border:1px solid #fcd34d;border-radius:10px;padding:.92rem 1.1rem;margin-top:.85rem;display:none}
+.hbox.show{display:block}
+.hlbl{font-size:.7rem;font-weight:700;color:var(--hint);letter-spacing:.5px;margin-bottom:.28rem;text-transform:uppercase}
+.htxt{font-size:.84rem;color:#78350f;line-height:1.5}
+.fbox{border-radius:10px;padding:.92rem 1.1rem;margin-top:.85rem;display:none}
+.fbox.show{display:block}
+.fbox.ok{background:var(--okb);border:1px solid #86efac}
+.fbox.no{background:var(--nob);border:1px solid #fca5a5}
+.flbl{font-size:.77rem;font-weight:700;margin-bottom:.26rem}
+.fbox.ok .flbl{color:var(--ok)}
+.fbox.no .flbl{color:var(--no)}
+.ftxt{font-size:.84rem;color:var(--t2);line-height:1.5}
+.abar{display:flex;gap:.68rem;margin-top:1.1rem}
+.bhint{background:none;border:1.5px solid #fcd34d;color:var(--hint);padding:.6rem 1rem;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.bhint:hover{background:var(--hintb)}
+.bcheck{flex:1;background:var(--text);color:#fff;border:none;border-radius:8px;padding:.7rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s}
+.bcheck:hover{background:#2d2820}
+.bcheck:disabled{background:var(--s3);color:var(--t3);cursor:not-allowed}
+.bnext{flex:1;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:.7rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;display:none}
+.bnext.show{display:block}
+.bnext:hover{background:#245c44}
+
+/* TEACHER */
+.tc{flex:1;padding:2rem;max-width:1100px;margin:0 auto;width:100%}
+.drow{display:flex;gap:.88rem;margin-bottom:1.35rem;flex-wrap:wrap}
+.stile{flex:1;min-width:145px;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:1.15rem}
+.stv{font-family:'DM Serif Display',serif;font-size:2.1rem}
+.stl{font-size:.75rem;color:var(--t3);margin-top:.16rem}
+.tabrow{display:flex;gap:.32rem;margin-bottom:1.35rem;border-bottom:1.5px solid var(--border)}
+.tbtn{background:none;border:none;font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:600;color:var(--t2);padding:.6rem 1rem;cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-1.5px;transition:all .2s}
+.tbtn.on{color:var(--text);border-bottom-color:var(--text)}
+.tbtn:hover{color:var(--text)}
+.panel{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:1.35rem;margin-bottom:1.1rem}
+.ptitle{font-size:.7rem;font-weight:700;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1.1rem}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+@media(max-width:680px){.twocol{grid-template-columns:1fr}}
+.sbrw{margin-bottom:.82rem}
+.sbhdr{display:flex;justify-content:space-between;margin-bottom:.26rem}
+.sbn{font-size:.79rem;font-weight:600}
+.sbp{font-size:.73rem;color:var(--t3);font-family:'Space Mono',monospace}
+.sbt{height:7px;background:var(--s3);border-radius:20px;overflow:hidden}
+.sbf{height:100%;border-radius:20px;transition:width .7s ease}
+.strow{display:flex;align-items:center;gap:.8rem;padding:.7rem 0;border-bottom:1px solid var(--s2)}
+.strow:last-child{border-bottom:none}
+.stav{width:32px;height:32px;border-radius:8px;background:var(--text);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0}
+.stin{flex:1}
+.stna{font-size:.84rem;font-weight:600}
+.stde{font-size:.71rem;color:var(--t3);margin-top:.07rem}
+.ftbl{width:100%;border-collapse:collapse}
+.ftbl th{text-align:left;font-size:.69rem;color:var(--t3);letter-spacing:1px;text-transform:uppercase;padding:.46rem .7rem;border-bottom:1.5px solid var(--border)}
+.ftbl td{padding:.76rem .7rem;font-size:.82rem;border-bottom:1px solid var(--s2)}
+.ftbl tr:hover td{background:var(--s2)}
+.pill{display:inline-block;padding:.15rem .5rem;border-radius:4px;font-size:.67rem;font-weight:700;text-transform:uppercase}
+.pill.g{background:var(--okb);color:var(--ok)}
+.pill.y{background:var(--a2l);color:var(--a2)}
+.pill.r{background:var(--nob);color:var(--no)}
+.pill.gr{background:var(--s3);color:var(--t3)}
+.frow{display:flex;gap:.8rem;align-items:flex-start;padding:.8rem 0;border-bottom:1px solid var(--s2)}
+.frow:last-child{border-bottom:none}
+.fico{font-size:.95rem;flex-shrink:0;margin-top:.08rem}
+.fbod strong{font-size:.83rem}
+.fbod p{font-size:.77rem;color:var(--t2);margin-top:.16rem;line-height:1.4}
+.expbtn{background:none;border:1.5px solid var(--border);color:var(--t2);padding:.5rem 1rem;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s}
+.expbtn:hover{border-color:var(--text);color:var(--text)}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login" class="page">
+  <div class="ll">
+    <div>
+      <div class="btag">Grade 11 · SBAC Math</div>
+      <div class="btitle">Master<br>the <span>Standards</span></div>
+      <div class="bdesc">Adaptive mastery practice. Demonstrate 75% accuracy (3 of 4 correct) to unlock each standard.</div>
+      <div class="feats">
+        <div class="feat"><div class="fdot">✓</div>Mastery gate: 3 of 4 correct to advance</div>
+        <div class="feat"><div class="fdot">✓</div>Hints on every question — no penalty</div>
+        <div class="feat"><div class="fdot">✓</div>Questions shuffle every session</div>
+        <div class="feat"><div class="fdot">✓</div>Teacher dashboard with live progress</div>
+      </div>
+      <div class="dchips">
+        <span class="dchip">Algebra &amp; Functions</span>
+        <span class="dchip">Geometry &amp; Trig</span>
+        <span class="dchip">Statistics</span>
+        <span class="dchip">Number &amp; Quantity</span>
+      </div>
+    </div>
+    <div style="font-size:.72rem;color:rgba(255,255,255,.3)">Standalone · Canvas LTI integration coming</div>
+  </div>
+  <div class="lr">
+    <div class="lh">Sign In</div>
+    <div class="ls">Choose your role to get started</div>
+    <div class="rtabs">
+      <button class="rtab on" id="tab-stu">Student</button>
+      <button class="rtab" id="tab-tea">Teacher</button>
+    </div>
+
+    <!-- STUDENT FORM -->
+    <div id="stu-form">
+      <div class="fg">
+        <label class="fl">Your Full Name</label>
+        <input class="fi" type="text" id="stu-name" placeholder="e.g. Alex Martinez" />
+      </div>
+      <div class="fg">
+        <label class="fl">Class Period</label>
+        <select class="fi" id="stu-period">
+          <option value="">Select your period...</option>
+          <option>Period 1</option><option>Period 2</option>
+          <option>Period 3</option><option>Period 4</option>
+          <option>Period 5</option><option>Period 6</option>
+        </select>
+      </div>
+      <button class="bp" id="btn-stu-login">Start Practice →</button>
+      <div class="div"></div>
+      <div style="font-size:.77rem;color:var(--t3);text-align:center">Progress saves automatically</div>
+    </div>
+
+    <!-- TEACHER FORM -->
+    <div id="tea-form" style="display:none">
+      <div class="fg">
+        <label class="fl">Your Name</label>
+        <input class="fi" type="text" id="tea-name" placeholder="e.g. Ms. Johnson" />
+      </div>
+      <div class="fg">
+        <label class="fl">Access Code</label>
+        <input class="fi" type="password" id="tea-code" placeholder="Enter access code" />
+      </div>
+      <button class="bp" id="btn-tea-login">View Dashboard →</button>
+      <div class="div"></div>
+      <div style="font-size:.75rem;color:var(--t3);text-align:center">Default code: <strong style="color:var(--t2)">teacher123</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- STUDENT HOME -->
+<div id="student" class="page" style="display:none">
+  <div class="tbar">
+    <div class="tlogo">SBAC <span>Mastery</span></div>
+    <div class="tright">
+      <div class="xpc">⭐ <span id="xp-val">0</span> XP</div>
+      <div class="uc"><div class="uav" id="uav-txt"></div><span id="uname-txt"></span></div>
+      <a href="sbac-tutor.html" style="display:flex;align-items:center;gap:.4rem;font-size:.79rem;font-weight:600;color:var(--a3);background:var(--a3l);border:1.5px solid #93c5fd;padding:.4rem .88rem;border-radius:8px;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#bfdbfe'" onmouseout="this.style.background='var(--a3l)'">🎯 Performance Task Tutor</a>
+      <button class="bg" id="btn-signout-s">Sign out</button>
+    </div>
+  </div>
+  <div class="pc">
+    <div class="ph">
+      <div class="pt">Your Learning Path</div>
+      <div class="ps">Complete each standard at 75% (3 of 4 correct) to unlock the next.</div>
+    </div>
+    <div id="domains-container"></div>
+  </div>
+</div>
+
+<!-- PRACTICE -->
+<div id="practice" class="page" style="display:none">
+  <div class="ptbar">
+    <button class="bg" id="btn-back">← Standards</button>
+    <div class="pinfo">
+      <div class="pcode" id="p-code"></div>
+      <div class="pname" id="p-name"></div>
+    </div>
+    <div class="mtrack">
+      <span>Mastery</span>
+      <div class="pips" id="pips-row"></div>
+    </div>
+  </div>
+  <div class="mpb">
+    <div class="mpbi">
+      <span class="mpbl" id="mpb-lbl">0 / 3 needed</span>
+      <div class="mpbt"><div class="mpbf" id="mpb-fill" style="width:0%"></div></div>
+      <span class="mpbp" id="mpb-pct">0%</span>
+    </div>
+  </div>
+  <div class="pb">
+    <div class="mbanner" id="mastery-banner">
+      <div class="bicon">🎯</div>
+      <div class="bh">Standard Mastered!</div>
+      <div class="bp2" id="mb-msg">Great work — 75% mastery achieved.</div>
+      <div class="mstats">
+        <div><div class="msv" id="mb-c">—</div><div class="msl">Correct</div></div>
+        <div><div class="msv" id="mb-t">—</div><div class="msl">Questions</div></div>
+        <div><div class="msv" id="mb-x">—</div><div class="msl">XP Earned</div></div>
+      </div>
+      <button class="bcont" id="btn-continue">Continue →</button>
+    </div>
+    <div class="rbanner" id="retry-banner">
+      <div class="bicon">💪</div>
+      <div class="bh">Keep Practicing!</div>
+      <div class="bp2" id="rb-msg">Need 3/4. Review hints and try again.</div>
+      <button class="bret" id="btn-retry">Try Again →</button>
+    </div>
+    <div id="q-area">
+      <div class="qcard">
+        <div class="qmeta">
+          <span class="qbadge" id="q-num"></span>
+          <div class="qdots" id="q-dots"></div>
+        </div>
+        <div class="qtext" id="q-text"></div>
+        <div class="opts" id="q-opts"></div>
+        <div class="hbox" id="hint-box">
+          <div class="hlbl">💡 Hint</div>
+          <div class="htxt" id="hint-txt"></div>
+        </div>
+        <div class="fbox" id="fb-box">
+          <div class="flbl" id="fb-lbl"></div>
+          <div class="ftxt" id="fb-txt"></div>
+        </div>
+        <div class="abar">
+          <button class="bhint" id="btn-hint">💡 Hint</button>
+          <button class="bcheck" id="btn-check" disabled>Check Answer</button>
+          <button class="bnext" id="btn-next">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER -->
+<div id="teacher" class="page" style="display:none">
+  <div class="tbar">
+    <div class="tlogo">SBAC <span>Mastery</span> — Teacher</div>
+    <div class="tright">
+      <button class="expbtn" id="btn-export">⬇ Export CSV</button>
+      <button class="bg" id="btn-signout-t">Sign Out</button>
+    </div>
+  </div>
+  <div class="tc">
+    <div style="margin-bottom:1.35rem">
+      <div style="font-size:.74rem;color:var(--t3);margin-bottom:.2rem">TEACHER DASHBOARD</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:1.6rem" id="t-greet">Welcome</div>
+    </div>
+    <div class="drow" id="t-stats"></div>
+    <div class="tabrow">
+      <button class="tbtn on" id="tbtn-ov">Overview</button>
+      <button class="tbtn" id="tbtn-ro">Full Roster</button>
+      <button class="tbtn" id="tbtn-fl">⚑ Needs Attention</button>
+    </div>
+    <div id="t-ov">
+      <div class="twocol">
+        <div class="panel"><div class="ptitle">Mastery by Standard</div><div id="t-stdbars"></div></div>
+        <div class="panel"><div class="ptitle">Recent Activity</div><div id="t-activity"></div></div>
+      </div>
+    </div>
+    <div id="t-ro" style="display:none">
+      <div class="panel"><div class="ptitle">All Students</div>
+        <table class="ftbl">
+          <thead><tr><th>Student</th><th>Period</th><th>Mastered</th><th>Questions</th><th>Accuracy</th><th>Last Active</th><th>Status</th></tr></thead>
+          <tbody id="t-roster"></tbody>
+        </table>
+      </div>
+    </div>
+    <div id="t-fl" style="display:none">
+      <div class="panel"><div class="ptitle">Students Who Need Support</div><div id="t-flags"></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// DATA
+// ================================================================
+const DOMAINS=[
+  {name:"Algebra & Functions",key:"algebra",standards:[
+    {code:"HSA-SSE.B.3",name:"Rewriting Expressions",desc:"Factor or expand expressions to reveal zeros, maxima/minima.",mr:3,questions:[
+      {t:"Which expression is equivalent to <span class='math'>x² − 16</span>?",o:["(x − 4)(x + 4)","(x − 8)(x + 2)","(x − 4)²","x(x − 16)"],a:0,h:"Difference of squares: a² − b² = (a−b)(a+b). Here b = 4.",e:"x² − 16 = x² − 4² = (x−4)(x+4) by difference of squares."},
+      {t:"Factor completely: <span class='math'>2x² + 10x + 12</span>",o:["2(x + 2)(x + 3)","(2x + 4)(x + 3)","2(x + 6)(x + 1)","(x + 2)(2x + 6)"],a:0,h:"Factor out GCF = 2 first, then factor x² + 5x + 6.",e:"2(x²+5x+6) = 2(x+2)(x+3). Check: 2×3=6, 2+3=5 ✓"},
+      {t:"Which form of <span class='math'>f(x) = x² − 5x + 6</span> reveals the zeros?",o:["f(x) = (x − 2)(x − 3)","f(x) = (x − 2.5)² − 0.25","f(x) = x(x − 5) + 6","f(x) = −(x+2)(x+3)"],a:0,h:"Zeros show in factored form (x−r)(x−s) where r and s are the roots.",e:"(x−2)(x−3)=0 gives x=2 and x=3. Vertex form shows minimum, not zeros."},
+      {t:"Rewrite <span class='math'>x² + 8x + 16</span> as a perfect square.",o:["(x + 4)²","(x + 8)²","(x + 4)(x − 4)","(x + 2)⁴"],a:0,h:"Pattern: x² + 2bx + b² = (x+b)². Here 2b=8 so b=4, b²=16 ✓",e:"x² + 8x + 16 = (x+4)²"},
+      {t:"Factor: <span class='math'>4x³ − 16x</span>",o:["4x(x − 2)(x + 2)","4x(x² − 4)","x(4x² − 16)","4(x³ − 4x)"],a:0,h:"GCF = 4x. Then factor x²−4 using difference of squares.",e:"4x(x²−4) = 4x(x−2)(x+2)"},
+      {t:"Simplify: <span class='math'>(x + 3)² − 4</span>",o:["(x + 5)(x + 1)","x² + 6x + 5","Both A and B","(x+3)(x+3)−4"],a:2,h:"Expand (x+3)²−4 = x²+6x+9−4 = x²+6x+5. Then factor.",e:"x²+6x+5 = (x+5)(x+1). A and B are the same expression — both correct."}
+    ]},
+    {code:"HSA-CED.A.1",name:"Creating Equations",desc:"Create equations and inequalities to solve real-world problems.",mr:3,questions:[
+      {t:"Gym costs $40/month plus $5/class. Bill was $75. Equation for classes <span class='math'>c</span>?",o:["40 + 5c = 75","5 + 40c = 75","45c = 75","40(5c) = 75"],a:0,h:"Fixed fee + (cost per class × number) = total.",e:"40 + 5c = 75 → c = 7."},
+      {t:"Sum of three consecutive odd integers is 57. Smallest = <span class='math'>n</span>. Equation?",o:["n + (n+2) + (n+4) = 57","n + (n+1) + (n+2) = 57","3n + 3 = 57","3n = 57"],a:0,h:"Consecutive odd integers differ by 2: n, n+2, n+4.",e:"3n+6=57 → n=17. Check: 17+19+21=57 ✓"},
+      {t:"Two trains go opposite directions at 55 and 65 mph. Hours until 360 miles apart?",o:["3 hours","2.5 hours","4 hours","6 hours"],a:0,h:"Opposite directions: add speeds. (55+65)t = 360.",e:"120t = 360 → t = 3 hours."},
+      {t:"Rectangle length = 3 more than twice width. Perimeter = 48. Equation for width <span class='math'>w</span>?",o:["2(2w+3) + 2w = 48","w(2w+3) = 48","2w + 3 = 48","6w = 48"],a:0,h:"Perimeter = 2(l + w). Length = 2w + 3.",e:"2[(2w+3)+w] = 6w+6 = 48 → w = 7."},
+      {t:"Phone plan: $25 base + $0.08/text. Budget $45. Maximum texts?",o:["250","200","300","375"],a:0,h:"25 + 0.08t ≤ 45 → 0.08t ≤ 20.",e:"t ≤ 250. Maximum = 250 texts."},
+      {t:"Student earns $15/hr, works ≤18 hrs/week, needs ≥$180. Minimum hours?",o:["12","10","15","18"],a:0,h:"15h ≥ 180 → h ≥ ?",e:"h ≥ 12. Minimum = 12 hours."}
+    ]},
+    {code:"HSF-IF.C.7",name:"Graphing Functions",desc:"Graph functions; identify intercepts, vertex, and extrema.",mr:3,questions:[
+      {t:"Vertex of <span class='math'>f(x) = (x − 3)² + 5</span>?",o:["(3, 5)","(−3, 5)","(3, −5)","(−3, −5)"],a:0,h:"Vertex form f(x) = a(x−h)²+k has vertex (h,k).",e:"h=3, k=5. Vertex = (3,5)."},
+      {t:"Y-intercept of <span class='math'>f(x) = 2x² − 5x + 3</span>?",o:["(0, 3)","(0, 2)","(0, −5)","(3, 0)"],a:0,h:"Substitute x = 0.",e:"f(0) = 3. Y-intercept = (0,3)."},
+      {t:"Axis of symmetry of <span class='math'>f(x) = x² − 8x + 12</span>?",o:["x = 4","x = −4","x = 8","x = −8"],a:0,h:"x = −b/(2a). Here a=1, b=−8.",e:"x = 8/2 = 4."},
+      {t:"Function with zeros at x = −2 and x = 5?",o:["f(x) = (x+2)(x−5)","f(x) = (x−2)(x+5)","f(x) = (x+2)(x+5)","f(x) = (x−2)(x−5)"],a:0,h:"Zero at x=−2 → factor (x+2). Zero at x=5 → factor (x−5).",e:"(x+2)(x−5) = 0 at x=−2 and x=5. ✓"},
+      {t:"Which function has a minimum?",o:["f(x) = 3x² − 2x + 1","f(x) = −3x² + 2","g(x) = −x² + 4x","h(x) = 5 − 2x²"],a:0,h:"Minimum when parabola opens up — positive leading coefficient.",e:"a=3>0 → opens up → has minimum."},
+      {t:"Maximum value of <span class='math'>f(x) = −2(x−1)² + 8</span>?",o:["8","−2","1","6"],a:0,h:"a<0 opens down. Max = k in vertex form.",e:"Max = k = 8 at vertex (1,8)."}
+    ]},
+    {code:"HSF-BF.A.1",name:"Building Functions",desc:"Build functions modeling relationships between two quantities.",mr:3,questions:[
+      {t:"Bacteria doubles every hour from 200. Population after <span class='math'>t</span> hours?",o:["P(t) = 200·2ᵗ","P(t) = 200+2t","P(t) = 200·t²","P(t) = 400t"],a:0,h:"Exponential growth: initial × (growth factor)^t.",e:"P(t) = 200·2ᵗ."},
+      {t:"Temperature drops 3°F/hr from 86°F. After <span class='math'>h</span> hours?",o:["T(h) = 86 − 3h","T(h) = 3h − 86","T(h) = 86 + 3h","T(h) = 86·3^h"],a:0,h:"Linear decrease: start − (rate × time).",e:"T(h) = 86 − 3h."},
+      {t:"$500 at 4% annual compound interest. Balance after <span class='math'>n</span> years?",o:["B(n) = 500(1.04)ⁿ","B(n) = 500+0.04n","B(n) = 500(0.04)ⁿ","B(n) = 500+4n"],a:0,h:"Compound interest: P(1+r)ⁿ.",e:"B(n) = 500(1.04)ⁿ."},
+      {t:"f(x) = 2x+1, g(x) = x². Find f(g(x)).",o:["2x² + 1","2x+1+x²","(2x+1)·x²","4x+1"],a:0,h:"f(g(x)): substitute x² into f. Replace x with x².",e:"f(x²) = 2(x²)+1 = 2x²+1."},
+      {t:"Quantity decays 20% yearly from 1000. Which models it?",o:["f(t) = 1000(0.8)ᵗ","f(t) = 1000(0.2)ᵗ","f(t) = 1000−200t","f(t) = 1000(1.2)ᵗ"],a:0,h:"20% decay → 80% remains each year → multiply by 0.80.",e:"f(t) = 1000(0.8)ᵗ."}
+    ]}
+  ]},
+  {name:"Geometry & Trigonometry",key:"geometry",standards:[
+    {code:"HSG-SRT.B.5",name:"Similarity & Congruence",desc:"Use similarity and congruence criteria to solve problems.",mr:3,questions:[
+      {t:"Similar triangles, scale factor 4:1. Smaller perimeter = 24 cm. Larger?",o:["96 cm","28 cm","48 cm","6 cm"],a:0,h:"Perimeter scales by the scale factor: 24 × 4.",e:"24 × 4 = 96 cm."},
+      {t:"△ABC ~ △DEF. AB=9, BC=12, DE=6. Find EF.",o:["8","18","4","9"],a:0,h:"AB/DE = BC/EF. Cross multiply.",e:"9/6 = 12/EF → EF = 8."},
+      {t:"Which criterion CANNOT prove triangle congruence?",o:["SSA","SSS","SAS","AAS"],a:0,h:"One case with two sides and a non-included angle is ambiguous.",e:"SSA is the ambiguous case. SSS, SAS, AAS all work."},
+      {t:"6-ft person, 4-ft shadow. Tree has 18-ft shadow. Tree height?",o:["27 ft","12 ft","9 ft","24 ft"],a:0,h:"Similar triangles: person/shadow = tree/tree's shadow.",e:"6/4 = h/18 → h = 27 ft."},
+      {t:"Similar rectangles: areas 25 cm² and 100 cm². Linear scale factor?",o:["1:2","1:4","5:10","2:5"],a:0,h:"Area scales by square of linear factor. Linear = √(25/100).",e:"√(1/4) = 1/2. Scale factor = 1:2."},
+      {t:"△PQR: PQ=10, PR=6. Similar △XYZ: XY=15. Find XZ.",o:["9","18","7.5","12"],a:0,h:"Scale factor = XY/PQ = 15/10 = 3/2. XZ = PR × 3/2.",e:"XZ = 6 × 1.5 = 9."}
+    ]},
+    {code:"HSG-SRT.C.8",name:"Trigonometry",desc:"Use trig ratios and Pythagorean Theorem for right triangles.",mr:3,questions:[
+      {t:"Right triangle: opposite = 5, hypotenuse = 13. sin(θ) = ?",o:["5/13","12/13","5/12","13/5"],a:0,h:"SOH: sin = Opposite/Hypotenuse.",e:"sin(θ) = 5/13."},
+      {t:"10-m ladder at 60° from ground. Height up wall?",o:["5√3 m","5 m","10 m","5√2 m"],a:0,h:"sin(60°) = height/10. sin(60°) = √3/2.",e:"h = 10 × √3/2 = 5√3 ≈ 8.66 m."},
+      {t:"Right triangle: adjacent = 8, hypotenuse = 17. Missing leg?",o:["15","9","√225","Both A and C"],a:3,h:"a²+b²=c²: 8²+x²=17².",e:"64+x²=289 → x=15. Both 15 and √225 are correct."},
+      {t:"Observer 40 m away, 35° angle of elevation to building. Height?",o:["40 tan(35°)","≈28.0 m","Both A and B","40 sin(35°)"],a:2,h:"tan(angle) = height/adjacent. h = 40·tan(35°).",e:"h = 40·tan(35°) ≈ 28.0 m. A and B are both correct."},
+      {t:"Right triangle with legs 7 and 24. Correct equation?",o:["7²+24²=25²","7+24=25","7²+24²=31²","14²+24²=25²"],a:0,h:"Calculate 49+576=625. Is 625 a perfect square?",e:"625 = 25². The 7-24-25 Pythagorean triple. ✓"},
+      {t:"Right △: cos(A) = 3/5. Find tan(A).",o:["4/3","3/4","4/5","5/4"],a:0,h:"cos=adj/hyp=3/5. Find opp using Pythagorean theorem.",e:"opp=√(25−9)=4. tan=opp/adj=4/3."}
+    ]},
+    {code:"HSG-GPE.B.4",name:"Coordinate Geometry",desc:"Use coordinates to prove geometric theorems; distances and slopes.",mr:3,questions:[
+      {t:"Distance between (1,2) and (4,6)?",o:["5","3","7","√7"],a:0,h:"d = √[(x₂−x₁)²+(y₂−y₁)²].",e:"√[9+16] = √25 = 5."},
+      {t:"Midpoint of AB = (3,7). A = (1,4). Find B.",o:["(5,10)","(2,5.5)","(4,11)","(6,14)"],a:0,h:"Midpoint = ((x₁+x₂)/2,(y₁+y₂)/2). Solve for x₂,y₂.",e:"x₂=5, y₂=10. B=(5,10)."},
+      {t:"Line has slope 2/3. Perpendicular slope?",o:["−3/2","3/2","−2/3","2/3"],a:0,h:"Perpendicular slopes are negative reciprocals.",e:"−3/2."},
+      {t:"Rectangle A(0,0),B(6,0),C(6,4),D(0,4). Diagonal AC length?",o:["2√13","6","10","√40"],a:0,h:"Distance from (0,0) to (6,4).",e:"√(36+16)=√52=2√13≈7.21."},
+      {t:"Slope through (2,5) and (6,13)?",o:["2","8","1/2","4"],a:0,h:"m = (y₂−y₁)/(x₂−x₁).",e:"(13−5)/(6−2) = 8/4 = 2."}
+    ]}
+  ]},
+  {name:"Statistics & Probability",key:"statistics",standards:[
+    {code:"HSS-ID.B.6",name:"Linear Models for Data",desc:"Fit linear functions to data; interpret slope, intercept, correlation.",mr:3,questions:[
+      {t:"Scatter plot: strong negative linear association. Best r?",o:["r = −0.94","r = 0.94","r = −0.2","r = 0.2"],a:0,h:"Negative → r<0. Strong → r close to −1.",e:"r=−0.94 is strong (near −1) and negative. ✓"},
+      {t:"Regression: <span class='math'>ŷ = 3x + 7</span>. Predict y when x = 6.",o:["25","18","42","21"],a:0,h:"Substitute x=6: ŷ=3(6)+7.",e:"ŷ = 18+7 = 25."},
+      {t:"Slope of test scores vs. study hours = 7.5. Meaning?",o:["Each extra study hour predicts 7.5 more points","Students average 7.5","Model is 7.5% accurate","7.5% improved"],a:0,h:"Slope = rate of change per unit of x.",e:"Each additional study hour → 7.5 more predicted points."},
+      {t:"A residual equals:",o:["Observed − Predicted (y − ŷ)","Predicted − Observed","Slope of the line","The y-intercept"],a:0,h:"Residual = how far the actual point is from the line.",e:"Residual = y − ŷ. Positive = above line; negative = below."},
+      {t:"True statement about correlation and causation?",o:["Correlation does not imply causation","r=0.99 proves causation","Negative r = one causes other to decrease","Strong r = cause-and-effect"],a:0,h:"Could a third variable explain both trends?",e:"Correlation ≠ causation. Lurking variables may explain the pattern."},
+      {t:"Y-intercept of salary vs. experience regression = $32,000. Meaning?",o:["Predicted salary with 0 years experience","Salary after 32 years","$32,000 increase per year","Minimum salary"],a:0,h:"Y-intercept = y when x=0. Here x=0 means zero experience.",e:"Model predicts $32,000 starting salary with 0 years experience."}
+    ]},
+    {code:"HSS-CP.A.1",name:"Events & Probability",desc:"Unions, intersections, complements; basic probability calculations.",mr:3,questions:[
+      {t:"Bag: 4 red, 3 blue, 5 green. P(red) = ?",o:["1/3","4/7","3/12","5/12"],a:0,h:"P = favorable/total. Total = 4+3+5=12.",e:"P(red) = 4/12 = 1/3."},
+      {t:"P(A)=0.4, P(B)=0.3, mutually exclusive. P(A or B)?",o:["0.7","0.12","0.1","1.0"],a:0,h:"Mutually exclusive: P(A∪B) = P(A)+P(B).",e:"0.4+0.3 = 0.7."},
+      {t:"The complement of event A is:",o:["Everything NOT in A","A and B together","A or B","The sample space"],a:0,h:"Complement = all outcomes not in A. P(A)+P(Aᶜ)=1.",e:"Aᶜ = all outcomes NOT in A."},
+      {t:"Fair die: P(even OR greater than 4)?",o:["2/3","1/2","5/6","4/6"],a:0,h:"Even={2,4,6}, >4={5,6}. Union={2,4,5,6}.",e:"4 outcomes out of 6. P=4/6=2/3."},
+      {t:"P(A)=0.6, P(B)=0.5, P(A∩B)=0.3. Independent?",o:["Yes — P(A)·P(B) = P(A∩B)","No — too large","Yes — sum >1","No — must be exclusive"],a:0,h:"Independent if P(A)·P(B) = P(A∩B). Check: 0.6×0.5=?",e:"0.6×0.5=0.30=P(A∩B). Yes, independent. ✓"}
+    ]}
+  ]},
+  {name:"Number & Quantity",key:"number",standards:[
+    {code:"HSN-RN.A.2",name:"Rational Exponents",desc:"Rewrite expressions with radicals and rational exponents.",mr:3,questions:[
+      {t:"Which is equivalent to <span class='math'>x^(2/3)</span>?",o:["³√(x²)","²√(x³)","x²·x³","(x³)²"],a:0,h:"x^(m/n) = ⁿ√(xᵐ). Denominator=root, numerator=power.",e:"x^(2/3) = ³√(x²)."},
+      {t:"Simplify <span class='math'>8^(2/3)</span>.",o:["4","16","2","6"],a:0,h:"8^(2/3) = (8^(1/3))². Cube root of 8 first.",e:"8^(1/3)=2, then 2²=4."},
+      {t:"Simplify: <span class='math'>x^(1/2) · x^(1/4)</span>",o:["x^(3/4)","x^(1/8)","x^(1/2)","x^(1/6)"],a:0,h:"Same base → add exponents: 1/2+1/4.",e:"2/4+1/4=3/4. Answer: x^(3/4)."},
+      {t:"Rewrite <span class='math'>x^(−3/4)</span> without negative exponents.",o:["1/⁴√(x³)","−⁴√(x³)","⁴√(1/x³)","Both A and C"],a:3,h:"x^(−n)=1/xⁿ. Then x^(3/4)=⁴√(x³).",e:"1/⁴√(x³) and ⁴√(1/x³) are equivalent — both correct."},
+      {t:"Simplify: <span class='math'>√(x⁴y⁶)</span>",o:["x²y³","x²y⁶","x⁴y³","2xy³"],a:0,h:"√=power 1/2. (xᵐ)^(1/2)=x^(m/2).",e:"x^(4/2)·y^(6/2)=x²y³."},
+      {t:"Simplify: <span class='math'>(27x⁶)^(1/3)</span>",o:["3x²","9x²","3x³","27x²"],a:0,h:"Apply to each factor: 27^(1/3)·(x⁶)^(1/3).",e:"27^(1/3)=3, (x⁶)^(1/3)=x². Answer: 3x²."}
+    ]},
+    {code:"HSN-Q.A.1",name:"Units & Dimensional Analysis",desc:"Use units as a tool to guide solutions of multi-step problems.",mr:3,questions:[
+      {t:"Convert 75 mph to feet per second. (1 mile = 5,280 ft)",o:["110 ft/sec","88 ft/sec","75 ft/sec","1.25 ft/sec"],a:0,h:"75 mi/hr × 5280 ft/mi × 1 hr/3600 sec.",e:"75×5280÷3600 = 110 ft/sec."},
+      {t:"Rectangle 12 cm × 8 cm. Area in square meters?",o:["0.0096 m²","0.96 m²","96 m²","0.096 m²"],a:0,h:"Convert cm→m: 12cm=0.12m, 8cm=0.08m. Then multiply.",e:"0.12×0.08=0.0096 m²."},
+      {t:"Appropriate unit for liquid density?",o:["g/mL","g·mL","mL/g","g + mL"],a:0,h:"Density = mass÷volume.",e:"g/mL (grams per milliliter)."},
+      {t:"Car: 240 miles in 4 hrs. Time for 360 miles at same speed?",o:["6 hours","5 hours","7.5 hours","4.5 hours"],a:0,h:"Speed=240/4=60 mph. Time=distance/speed.",e:"360/60 = 6 hours."},
+      {t:"2.5 cups flour for 24 cookies. Cups for 60 cookies?",o:["6.25 cups","5 cups","3.75 cups","7.5 cups"],a:0,h:"Proportion: 2.5/24 = x/60.",e:"x = 2.5×60/24 = 6.25 cups."}
+    ]}
+  ]}
+];
+
+const DEMO=[
+  {name:"Sam Williams",period:"Period 2",standards:{"HSA-SSE.B.3":{m:true,a:4,c:3},"HSA-CED.A.1":{m:true,a:4,c:3},"HSF-IF.C.7":{m:true,a:4,c:3},"HSF-BF.A.1":{m:true,a:4,c:3},"HSG-SRT.B.5":{m:true,a:4,c:3},"HSG-SRT.C.8":{m:false,a:4,c:2},"HSG-GPE.B.4":{m:false,a:0,c:0},"HSS-ID.B.6":{m:false,a:0,c:0},"HSS-CP.A.1":{m:false,a:0,c:0},"HSN-RN.A.2":{m:false,a:0,c:0},"HSN-Q.A.1":{m:false,a:0,c:0}},last:"Today 9:14am"},
+  {name:"Alex Martinez",period:"Period 2",standards:{"HSA-SSE.B.3":{m:true,a:5,c:4},"HSA-CED.A.1":{m:true,a:4,c:3},"HSF-IF.C.7":{m:false,a:4,c:2},"HSF-BF.A.1":{m:false,a:0,c:0},"HSG-SRT.B.5":{m:false,a:0,c:0},"HSG-SRT.C.8":{m:false,a:0,c:0},"HSG-GPE.B.4":{m:false,a:0,c:0},"HSS-ID.B.6":{m:false,a:0,c:0},"HSS-CP.A.1":{m:false,a:0,c:0},"HSN-RN.A.2":{m:false,a:0,c:0},"HSN-Q.A.1":{m:false,a:0,c:0}},last:"Today 9:42am"},
+  {name:"Jordan Lee",period:"Period 3",standards:{"HSA-SSE.B.3":{m:true,a:4,c:4},"HSA-CED.A.1":{m:true,a:4,c:3},"HSF-IF.C.7":{m:true,a:4,c:3},"HSF-BF.A.1":{m:false,a:3,c:1},"HSG-SRT.B.5":{m:false,a:0,c:0},"HSG-SRT.C.8":{m:false,a:0,c:0},"HSG-GPE.B.4":{m:false,a:0,c:0},"HSS-ID.B.6":{m:false,a:0,c:0},"HSS-CP.A.1":{m:false,a:0,c:0},"HSN-RN.A.2":{m:false,a:0,c:0},"HSN-Q.A.1":{m:false,a:0,c:0}},last:"Today 10:05am"},
+  {name:"Taylor Nguyen",period:"Period 3",standards:{"HSA-SSE.B.3":{m:false,a:8,c:1},"HSA-CED.A.1":{m:false,a:5,c:1},"HSF-IF.C.7":{m:false,a:0,c:0},"HSF-BF.A.1":{m:false,a:0,c:0},"HSG-SRT.B.5":{m:false,a:0,c:0},"HSG-SRT.C.8":{m:false,a:0,c:0},"HSG-GPE.B.4":{m:false,a:0,c:0},"HSS-ID.B.6":{m:false,a:0,c:0},"HSS-CP.A.1":{m:false,a:0,c:0},"HSN-RN.A.2":{m:false,a:0,c:0},"HSN-Q.A.1":{m:false,a:0,c:0}},last:"Yesterday 3:22pm"},
+  {name:"Riley Chen",period:"Period 4",standards:{"HSA-SSE.B.3":{m:true,a:4,c:3},"HSA-CED.A.1":{m:false,a:4,c:2},"HSF-IF.C.7":{m:false,a:0,c:0},"HSF-BF.A.1":{m:false,a:0,c:0},"HSG-SRT.B.5":{m:false,a:0,c:0},"HSG-SRT.C.8":{m:false,a:0,c:0},"HSG-GPE.B.4":{m:false,a:0,c:0},"HSS-ID.B.6":{m:false,a:0,c:0},"HSS-CP.A.1":{m:false,a:0,c:0},"HSN-RN.A.2":{m:false,a:0,c:0},"HSN-Q.A.1":{m:false,a:0,c:0}},last:"Today 11:30am"},
+  {name:"Casey Park",period:"Period 4",standards:{"HSA-SSE.B.3":{m:true,a:4,c:3},"HSA-CED.A.1":{m:true,a:4,c:4},"HSF-IF.C.7":{m:true,a:4,c:3},"HSF-BF.A.1":{m:true,a:4,c:3},"HSG-SRT.B.5":{m:true,a:5,c:4},"HSG-SRT.C.8":{m:false,a:3,c:1},"HSG-GPE.B.4":{m:false,a:0,c:0},"HSS-ID.B.6":{m:false,a:0,c:0},"HSS-CP.A.1":{m:false,a:0,c:0},"HSN-RN.A.2":{m:false,a:0,c:0},"HSN-Q.A.1":{m:false,a:0,c:0}},last:"Today 8:50am"},
+  {name:"Morgan Davis",period:"Period 5",standards:{"HSA-SSE.B.3":{m:true,a:4,c:3},"HSA-CED.A.1":{m:true,a:4,c:3},"HSF-IF.C.7":{m:true,a:4,c:3},"HSF-BF.A.1":{m:true,a:4,c:3},"HSG-SRT.B.5":{m:true,a:4,c:3},"HSG-SRT.C.8":{m:true,a:4,c:3},"HSG-GPE.B.4":{m:true,a:4,c:3},"HSS-ID.B.6":{m:true,a:4,c:3},"HSS-CP.A.1":{m:false,a:4,c:2},"HSN-RN.A.2":{m:false,a:0,c:0},"HSN-Q.A.1":{m:false,a:0,c:0}},last:"Today 7:55am"},
+];
+
+// ================================================================
+// STATE
+// ================================================================
+let user=null, mdata={}, xp=0;
+let activeStd=null, pool=[], idx=0, answers=[], hintUsed=false, sel=null, answered=false;
+
+function allStds(){return DOMAINS.flatMap(d=>d.standards)}
+function findStd(code){return allStds().find(s=>s.code===code)}
+function rec(code){if(!mdata[code])mdata[code]={correct:0,attempts:0,mastered:false};return mdata[code]}
+function isUnlocked(code){const s=allStds(),i=s.findIndex(x=>x.code===code);if(i===0)return true;return rec(s[i-1].code).mastered}
+function save(){if(!user)return;localStorage.setItem('sbac3_'+user.replace(/\s/g,'').toLowerCase(),JSON.stringify({mdata,xp}))}
+function loadData(name){const d=localStorage.getItem('sbac3_'+name.replace(/\s/g,'').toLowerCase());if(d){const p=JSON.parse(d);mdata=p.mdata||{};xp=p.xp||0}else{mdata={};xp=0}}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function showScreen(id) {
+  var ids = ['login','student','practice','teacher'];
+  ids.forEach(function(sid) {
+    var el = document.getElementById(sid);
+    if(el) el.style.display = 'none';
+  });
+  var target = document.getElementById(id);
+  if(target) {
+    if(id === 'login') target.style.display = 'flex';
+    else target.style.display = 'flex';
+  }
+}
+function gi(id){return document.getElementById(id)}
+
+// ================================================================
+// WIRE UP ALL BUTTONS — no onclick attributes needed
+// ================================================================
+window.addEventListener('load', function() {
+
+  // Role tabs
+  gi('tab-stu').addEventListener('click', function() {
+    gi('tab-stu').classList.add('on'); gi('tab-tea').classList.remove('on');
+    gi('stu-form').style.display='block'; gi('tea-form').style.display='none';
+  });
+  gi('tab-tea').addEventListener('click', function() {
+    gi('tab-tea').classList.add('on'); gi('tab-stu').classList.remove('on');
+    gi('tea-form').style.display='block'; gi('stu-form').style.display='none';
+  });
+
+  // Student login
+  gi('btn-stu-login').addEventListener('click', function() {
+    const name = gi('stu-name').value.trim();
+    const period = gi('stu-period').value;
+    if(!name){alert('Please enter your name.');return;}
+    if(!period){alert('Please select your period.');return;}
+    user = name;
+    loadData(name);
+    gi('xp-val').textContent = xp;
+    gi('uav-txt').textContent = name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+    gi('uname-txt').textContent = name + ' · ' + period;
+    buildHome();
+    showScreen('student');
+  });
+
+  // Teacher login
+  gi('btn-tea-login').addEventListener('click', function() {
+    const name = gi('tea-name').value.trim();
+    const code = gi('tea-code').value.trim();
+    if(!name){alert('Please enter your name.');return;}
+    if(code !== 'teacher123'){alert('Incorrect access code.\n\nThe default code is: teacher123');return;}
+    gi('t-greet').textContent = 'Welcome, ' + name;
+    buildTeacher();
+    showScreen('teacher');
+  });
+
+  // Sign out buttons
+  gi('btn-signout-s').addEventListener('click', function(){ showScreen('login'); });
+  gi('btn-signout-t').addEventListener('click', function(){ showScreen('login'); });
+
+  // Practice buttons
+  gi('btn-back').addEventListener('click', function(){ buildHome(); showScreen('student'); });
+  gi('btn-hint').addEventListener('click', function(){
+    gi('hint-box').classList.add('show');
+    hintUsed = true;
+  });
+  gi('btn-check').addEventListener('click', function(){ submitAnswer(); });
+  gi('btn-next').addEventListener('click', function(){ nextQuestion(); });
+  gi('btn-continue').addEventListener('click', function(){ buildHome(); showScreen('student'); });
+  gi('btn-retry').addEventListener('click', function(){ if(activeStd) startPractice(activeStd.code); });
+
+  // Teacher tabs
+  gi('tbtn-ov').addEventListener('click', function(){
+    setTeacherTab('ov'); gi('tbtn-ov').classList.add('on'); gi('tbtn-ro').classList.remove('on'); gi('tbtn-fl').classList.remove('on');
+  });
+  gi('tbtn-ro').addEventListener('click', function(){
+    setTeacherTab('ro'); gi('tbtn-ro').classList.add('on'); gi('tbtn-ov').classList.remove('on'); gi('tbtn-fl').classList.remove('on');
+  });
+  gi('tbtn-fl').addEventListener('click', function(){
+    setTeacherTab('fl'); gi('tbtn-fl').classList.add('on'); gi('tbtn-ov').classList.remove('on'); gi('tbtn-ro').classList.remove('on');
+  });
+
+  // Export
+  gi('btn-export').addEventListener('click', exportCSV);
+
+  // Init: show login, hide everything else
+  showScreen('login');
+
+});
+
+function setTeacherTab(tab) {
+  gi('t-ov').style.display = tab==='ov' ? 'block' : 'none';
+  gi('t-ro').style.display = tab==='ro' ? 'block' : 'none';
+  gi('t-fl').style.display = tab==='fl' ? 'block' : 'none';
+}
+
+// ================================================================
+// STUDENT HOME
+// ================================================================
+function buildHome() {
+  const container = gi('domains-container');
+  container.innerHTML = '';
+  DOMAINS.forEach(function(domain) {
+    const mc = domain.standards.filter(s => rec(s.code).mastered).length;
+    const sec = document.createElement('div');
+    sec.className = 'dsec';
+    sec.innerHTML = '<div class="dhdr"><span class="dbadge '+domain.key+'">'+domain.name+'</span><span class="dprog">'+mc+'/'+domain.standards.length+' mastered</span></div><div class="sgrid" id="g-'+domain.key+'"></div>';
+    container.appendChild(sec);
+    const grid = sec.querySelector('.sgrid');
+    const barColors = {algebra:'var(--a3)',functions:'var(--accent)',geometry:'var(--a2)',statistics:'var(--a4)',number:'var(--pu)'};
+    domain.standards.forEach(function(std) {
+      const r = rec(std.code);
+      const unlocked = isUnlocked(std.code);
+      const mastered = r.mastered;
+      const inprog = !mastered && r.attempts > 0;
+      const pct = mastered ? 100 : Math.min(100, Math.round(r.correct/std.mr*100));
+      let sc='avail', st='Available';
+      if(!unlocked){sc='locked';st='🔒 Locked';}
+      else if(mastered){sc='mastered';st='✓ Mastered';}
+      else if(inprog){sc='inprog';st='In Progress';}
+      const card = document.createElement('div');
+      card.className = 'sc'+((!unlocked)?' locked':'')+(mastered?' mastered':'')+(inprog?' inprog':'');
+      card.innerHTML = '<div class="ctop"><span class="scode">'+std.code+'</span><span class="sstat '+sc+'">'+st+'</span></div><div class="sname">'+std.name+'</div><div class="sdesc">'+std.desc+'</div><div class="sbar"><div class="sbarf" style="width:'+pct+'%;background:'+barColors[domain.key]+'"></div></div><div class="sbarlbl"><span>'+r.correct+'/'+std.mr+' correct (75%)</span><span>'+pct+'%</span></div>';
+      if(unlocked) {
+        card.addEventListener('click', function(){ startPractice(std.code); });
+      }
+      grid.appendChild(card);
+    });
+  });
+}
+
+// ================================================================
+// PRACTICE
+// ================================================================
+function startPractice(code) {
+  activeStd = findStd(code);
+  if(!activeStd) return;
+  pool = shuffle(activeStd.questions).slice(0, Math.max(4, activeStd.questions.length));
+  idx = 0; answers = []; hintUsed = false; sel = null; answered = false;
+  gi('p-code').textContent = activeStd.code;
+  gi('p-name').textContent = activeStd.name;
+  gi('mastery-banner').classList.remove('show');
+  gi('retry-banner').classList.remove('show');
+  gi('q-area').style.display = 'block';
+  updatePips(); updateMPBar(); loadQ();
+  showScreen('practice');
+}
+
+function loadQ() {
+  if(idx >= 4){endSession();return;}
+  const q = pool[idx];
+  sel = null; answered = false; hintUsed = false;
+  gi('q-num').textContent = 'Question '+(idx+1)+' of 4 · '+activeStd.code;
+  const dd = gi('q-dots'); dd.innerHTML='';
+  for(let i=0;i<4;i++){const d=document.createElement('div');d.className='qdot'+(i<idx?' used':'');dd.appendChild(d);}
+  gi('q-text').innerHTML = q.t;
+  gi('hint-box').classList.remove('show');
+  gi('hint-txt').textContent = q.h;
+  gi('fb-box').classList.remove('show','ok','no');
+  gi('btn-hint').style.display = 'inline-block';
+  gi('btn-check').style.display = 'inline-block';
+  gi('btn-check').disabled = true;
+  gi('btn-next').classList.remove('show');
+  const od = gi('q-opts'); od.innerHTML='';
+  const L=['A','B','C','D'];
+  q.o.forEach(function(opt,i){
+    const d=document.createElement('div');
+    d.className='opt';
+    d.innerHTML='<span class="ol">'+L[i]+'</span><span>'+opt+'</span>';
+    d.addEventListener('click',function(){selectOpt(i);});
+    od.appendChild(d);
+  });
+  const card=gi('q-area').querySelector('.qcard');
+  card.style.animation='none';void card.offsetHeight;card.style.animation='none';
+}
+
+function selectOpt(i) {
+  if(answered) return;
+  sel = i;
+  document.querySelectorAll('.opt').forEach(function(el,j){el.classList.toggle('sel',j===i);});
+  gi('btn-check').disabled = false;
+}
+
+function submitAnswer() {
+  if(sel===null||answered) return;
+  answered = true;
+  const q = pool[idx];
+  const correct = sel === q.a;
+  answers.push(correct);
+  const r = rec(activeStd.code);
+  r.attempts++;
+  if(correct){r.correct=Math.min(r.correct+1,activeStd.mr+2);xp+=hintUsed?5:10;gi('xp-val').textContent=xp;}
+  document.querySelectorAll('.opt').forEach(function(el,i){
+    if(i===q.a) el.classList.add('ok');
+    else if(i===sel&&!correct) el.classList.add('no');
+  });
+  const fb=gi('fb-box');
+  fb.className='fbox show '+(correct?'ok':'no');
+  gi('fb-lbl').textContent=correct?'✓ Correct!':'✗ Not quite';
+  gi('fb-txt').textContent=q.e;
+  gi('btn-check').style.display='none';
+  gi('btn-hint').style.display='none';
+  gi('btn-next').classList.add('show');
+  updatePips(); updateMPBar(); save();
+}
+
+function nextQuestion() {
+  idx++;
+  if(idx>=4) endSession(); else loadQ();
+}
+
+function endSession() {
+  const correct=answers.filter(Boolean).length;
+  const mastered=correct>=3;
+  const r=rec(activeStd.code);
+  gi('q-area').style.display='none';
+  if(mastered){
+    r.mastered=true;
+    gi('mastery-banner').classList.add('show');
+    gi('retry-banner').classList.remove('show');
+    gi('mb-c').textContent=correct;gi('mb-t').textContent=4;gi('mb-x').textContent='+'+correct*10;
+    gi('mb-msg').textContent=correct+'/4 on '+activeStd.code+' — unlocked!';
+  } else {
+    r.correct=0;r.mastered=false;
+    gi('retry-banner').classList.add('show');
+    gi('mastery-banner').classList.remove('show');
+    gi('rb-msg').textContent='You got '+correct+'/4. Need 3/4 (75%) to advance. Try again!';
+  }
+  save(); buildHome(); updateMPBar();
+}
+
+function updatePips(){
+  const p=gi('pips-row');p.innerHTML='';
+  for(let i=0;i<4;i++){const pip=document.createElement('div');pip.className='pip';if(i<answers.length)pip.classList.add(answers[i]?'ok':'no');p.appendChild(pip);}
+}
+function updateMPBar(){
+  const c=answers.filter(Boolean).length;
+  gi('mpb-fill').style.width=Math.min(100,Math.round(c/3*100))+'%';
+  gi('mpb-pct').textContent=Math.round(c/4*100)+'%';
+  gi('mpb-lbl').textContent=c+' / 3 needed';
+}
+
+// ================================================================
+// TEACHER DASHBOARD
+// ================================================================
+function buildTeacher() {
+  const stds=allStds(), n=DEMO.length;
+  const avgM=(DEMO.reduce(function(a,s){return a+Object.values(s.standards).filter(function(v){return v.m;}).length;},0)/n).toFixed(1);
+  const struggling=DEMO.filter(function(s){const t=Object.values(s.standards).reduce(function(a,v){return a+v.a;},0),c=Object.values(s.standards).reduce(function(a,v){return a+v.c;},0);return t>4&&c/t<0.5;}).length;
+  const onTrack=DEMO.filter(function(s){return Object.values(s.standards).filter(function(v){return v.m;}).length>=4;}).length;
+  gi('t-stats').innerHTML='<div class="stile"><div class="stv">'+n+'</div><div class="stl">Students</div></div><div class="stile"><div class="stv">'+avgM+'</div><div class="stl">Avg Mastered</div></div><div class="stile"><div class="stv" style="color:var(--ok)">'+onTrack+'</div><div class="stl">On Track (4+)</div></div><div class="stile"><div class="stv" style="color:var(--no)">'+struggling+'</div><div class="stl">Needs Attention</div></div><div class="stile"><div class="stv">'+stds.length+'</div><div class="stl">Standards</div></div>';
+  const sb=gi('t-stdbars');sb.innerHTML='';
+  stds.forEach(function(s){
+    const mc=DEMO.filter(function(st){return st.standards[s.code]&&st.standards[s.code].m;}).length;
+    const pct=Math.round(mc/n*100);
+    const col=pct>=70?'var(--ok)':pct>=40?'var(--a2)':'var(--a4)';
+    sb.innerHTML+='<div class="sbrw"><div class="sbhdr"><span class="sbn">'+s.code+'</span><span class="sbp">'+mc+'/'+n+' ('+pct+'%)</span></div><div class="sbt"><div class="sbf" style="width:'+pct+'%;background:'+col+'"></div></div></div>';
+  });
+  const acts=[{n:"Morgan Davis",t:"Attempting HSS-CP.A.1",w:"5 min ago"},{n:"Casey Park",t:"Mastered HSG-SRT.B.5 ✓",w:"20 min ago"},{n:"Riley Chen",t:"Started HSA-CED.A.1",w:"40 min ago"},{n:"Jordan Lee",t:"HSF-BF.A.1 retry needed",w:"1 hr ago"},{n:"Sam Williams",t:"Mastered HSF-BF.A.1 ✓",w:"2 hrs ago"}];
+  gi('t-activity').innerHTML=acts.map(function(a){return '<div class="strow"><div class="stav">'+a.n.split(' ').map(function(x){return x[0];}).join('')+'</div><div class="stin"><div class="stna">'+a.n+'</div><div class="stde">'+a.t+'</div></div><span style="font-size:.71rem;color:var(--t3);white-space:nowrap">'+a.w+'</span></div>';}).join('');
+  const tb=gi('t-roster');tb.innerHTML='';
+  DEMO.forEach(function(s){
+    const mc=Object.values(s.standards).filter(function(v){return v.m;}).length;
+    const ta=Object.values(s.standards).reduce(function(a,v){return a+v.a;},0);
+    const tc=Object.values(s.standards).reduce(function(a,v){return a+v.c;},0);
+    const acc=ta>0?Math.round(tc/ta*100):0;
+    const ac=acc>=75?'var(--ok)':acc>=50?'var(--a2)':'var(--no)';
+    const pill=mc>=6?'<span class="pill g">Exceeding</span>':mc>=4?'<span class="pill y">On Track</span>':ta>4&&acc<50?'<span class="pill r">Struggling</span>':'<span class="pill gr">In Progress</span>';
+    tb.innerHTML+='<tr><td><div style="display:flex;align-items:center;gap:.55rem"><div class="stav" style="width:28px;height:28px;font-size:.68rem;border-radius:6px">'+s.name.split(' ').map(function(x){return x[0];}).join('')+'</div>'+s.name+'</div></td><td>'+s.period+'</td><td>'+mc+'/'+stds.length+'</td><td>'+ta+'</td><td style="color:'+ac+';font-family:Space Mono,monospace;font-size:.79rem;font-weight:700">'+acc+'%</td><td style="color:var(--t3);font-size:.77rem">'+s.last+'</td><td>'+pill+'</td></tr>';
+  });
+  const fl=gi('t-flags');
+  const flags=[];
+  DEMO.forEach(function(s){
+    const ta=Object.values(s.standards).reduce(function(a,v){return a+v.a;},0);
+    const tc=Object.values(s.standards).reduce(function(a,v){return a+v.c;},0);
+    const acc=ta>0?tc/ta:1;
+    if(ta>5&&acc<0.5)flags.push({icon:'🔴',name:s.name,period:s.period,msg:Math.round(acc*100)+'% accuracy over '+ta+' questions — recommend intervention.',last:s.last});
+    else if(ta>4&&acc<0.65)flags.push({icon:'🟡',name:s.name,period:s.period,msg:Math.round(acc*100)+'% accuracy — struggling. Consider reteaching.',last:s.last});
+  });
+  fl.innerHTML=flags.length?flags.map(function(f){return '<div class="frow"><div class="fico">'+f.icon+'</div><div class="fbod"><strong>'+f.name+'</strong> · '+f.period+'<p>'+f.msg+' Last active: '+f.last+'</p></div></div>';}).join(''):'<p style="color:var(--t3);padding:.5rem 0">🎉 All students on track!</p>';
+}
+
+function exportCSV(){
+  const stds=allStds();
+  const h=['Name','Period','Mastered','Questions','Accuracy','Last Active'].concat(stds.map(function(s){return s.code;}));
+  const rows=DEMO.map(function(s){
+    const mc=Object.values(s.standards).filter(function(v){return v.m;}).length;
+    const ta=Object.values(s.standards).reduce(function(a,v){return a+v.a;},0);
+    const tc=Object.values(s.standards).reduce(function(a,v){return a+v.c;},0);
+    const acc=ta>0?Math.round(tc/ta*100)+'%':'N/A';
+    return [s.name,s.period,mc+'/'+stds.length,ta,acc,s.last].concat(stds.map(function(st){return s.standards[st.code]?(s.standards[st.code].m?'Mastered':s.standards[st.code].a+' attempts'):'Not started';}));
+  });
+  const csv=[h].concat(rows).map(function(r){return r.join(',');}).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='sbac_progress_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+}
+</script>
+</body>
+</html>
